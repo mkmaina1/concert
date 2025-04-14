@@ -1,0 +1,280 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>Wishlist</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f5f7fa;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    .wishlist-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .wishlist-item {
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      animation: fadeSlideIn 0.6s ease forwards;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .wishlist-item:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    .wishlist-item:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .wishlist-item:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    @keyframes fadeSlideIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .item-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .item-details {
+      padding: 15px;
+    }
+
+    .item-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #444;
+    }
+
+    .item-price {
+      font-size: 16px;
+      color: #28a745;
+      margin-bottom: 15px;
+    }
+
+    .wishlist-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 8px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: transform 0.2s ease, background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+    }
+
+    .btn-cart {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .btn-cart:hover {
+      background-color: #0056b3;
+    }
+
+    .btn-remove {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .btn-remove:hover {
+      background-color: #a71d2a;
+    }
+
+    @media (max-width: 500px) {
+      .item-title {
+        font-size: 16px;
+      }
+
+      .item-price {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" data-header>
+    <div class="container">
+
+        <div class="overlay" data-overlay></div>
+
+        <div class="header-search">
+            <input type="search" name="search" placeholder="Search Product..." class="input-field">
+
+            <button class="search-btn" aria-label="Search">
+      <ion-icon name="search-outline"></ion-icon>
+    </button>
+        </div>
+
+        <a href="#" class="logo">
+            <img src="{%static 'images/mk.jpg' %}" alt="MK's logo" width="130" height="31">
+        </a>
+
+        <div class="header-actions">
+
+            {% if user.is_authenticated %}
+                <button class="header-action-btn">
+                    <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+                    <p class="header-action-label">
+                        <a href="{% url 'logout' %}">Logout</a>
+                    </p>
+                </button>
+                <button class="header-action-btn">
+                    <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+                    <p class="header-action-label">
+                        <a href="{% url 'logout' %}">Logout</a>
+                    </p>
+                </button>
+            {% else %}
+                <button class="header-action-btn">
+                    <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+                    <p class="header-action-label"><a href="{% url 'login' %}">Login</a></p>
+                </button>
+        
+                <button class="header-action-btn">
+                    <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+                    <p class="header-action-label"><a href="{% url 'signup' %}">Sign up</a></p>
+                </button>
+            {% endif %}
+        
+            <button class="header-action-btn">
+                <ion-icon name="cart-outline" aria-hidden="true"></ion-icon>
+                <p class="header-action-label"><a href="{% url 'cart' %}">Cart</a></p>
+            </button>
+        
+        </div>
+        
+
+        <button class="nav-open-btn" data-nav-open-btn aria-label="Open Menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+        <nav class="navbar" data-navbar>
+
+            <div class="navbar-top">
+
+                <a href="#" class="logo">
+                    <img src="{%static 'images/mk.jpg' %}" alt="MK's logo" width="130" height="31">
+                </a>
+
+                <button class="nav-close-btn" data-nav-close-btn aria-label="Close Menu">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+
+            </div>
+
+            <ul class="navbar-list">
+
+                <li>
+                    <a href="/" class="navbar-link">Home</a>
+                </li>
+
+                <li>
+                    <a href="{% url 'tickets' %}" class="navbar-link">Tickets</a>
+                </li>
+                <li>
+                    <a href="{% url 'merchandise' %}" class="navbar-link">Merchandise</a>
+                </li>
+                <li>
+                    <a href="{% url 'album' %}" class="navbar-link">Artist Album</a>
+                </li>
+
+                <li>
+                    <a href="{% url 'checkout' %}" class="navbar-link">Checkout</a>
+                </li>
+
+            </ul>
+
+        </nav>
+
+    </div>
+</header>
+  <h1>My Wishlist</h1>
+
+  <div class="wishlist-container">
+
+    <div class="wishlist-item">
+      <img src="https://via.placeholder.com/300x200" alt="Product 1" class="item-image">
+      <div class="item-details">
+        <div class="item-title">Stylish Sneakers</div>
+        <div class="item-price">$59.99</div>
+        <div class="wishlist-buttons">
+          <button class="btn btn-cart">Add to Cart</button>
+          <button class="btn btn-remove">Remove</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="wishlist-item">
+      <img src="https://via.placeholder.com/300x200" alt="Product 2" class="item-image">
+      <div class="item-details">
+        <div class="item-title">Leather Backpack</div>
+        <div class="item-price">$89.99</div>
+        <div class="wishlist-buttons">
+          <button class="btn btn-cart">Add to Cart</button>
+          <button class="btn btn-remove">Remove</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="wishlist-item">
+      <img src="https://via.placeholder.com/300x200" alt="Product 3" class="item-image">
+      <div class="item-details">
+        <div class="item-title">Smartwatch Series 6</div>
+        <div class="item-price">$199.99</div>
+        <div class="wishlist-buttons">
+          <button class="btn btn-cart">Add to Cart</button>
+          <button class="btn btn-remove">Remove</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

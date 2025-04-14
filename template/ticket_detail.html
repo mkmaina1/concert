@@ -1,0 +1,250 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ ticket.description }}</title>
+    <link rel="shortcut icon" href="{% static 'favicon.svg' %}" type="image/svg+xml">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .product-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            max-width: 1500px;
+            margin: 2rem auto;
+        }
+
+        .product-image img {
+            width: 80%;
+            aspect-ratio: 1 / 1;
+            border-radius: 10px;
+            object-fit: contain; /* Or cover, depending on your preference */
+            background-color: #f9f9f9;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .product-details {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 2rem;
+        }
+
+        .product-details h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2e7d32;
+            margin: 0.5rem 0;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #888;
+            margin-left: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .discount {
+            background-color: #ffecb3;
+            color: #f57c00;
+            padding: 0.3rem 0.6rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            margin-left: 1rem;
+        }
+
+        .status {
+            color: #777;
+            margin-bottom: 1rem;
+        }
+        .add-btn {
+            margin-top: auto;
+            padding: 0.5rem;
+            background-color: #ff9900;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+
+        .add-btn:hover {
+            background-color: #e68a00;
+        }
+
+        /* Add more styles as needed */
+    </style>
+</head>
+<body>
+    {% if messages %}
+    <div id="message-container" style="
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #4caf50;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        z-index: 999;
+        font-weight: bold;
+    ">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+    <script>
+        setTimeout(() => {
+            const msg = document.getElementById('message-container');
+            if (msg) msg.style.display = 'none';
+        }, 5000);
+    </script>
+    {% endif %}
+    <header class="header" data-header>
+        <div class="container">
+    
+            <div class="overlay" data-overlay></div>
+    
+            <div class="header-search">
+                <input type="search" name="search" placeholder="Search Product..." class="input-field">
+    
+                <button class="search-btn" aria-label="Search">
+          <ion-icon name="search-outline"></ion-icon>
+        </button>
+            </div>
+    
+            <a href="#" class="logo">
+                <img src="{%static 'images/mk.jpg' %}" alt="MK's logo" width="130" height="31">
+            </a>
+    
+            <div class="header-actions">
+    
+                {% if user.is_authenticated %}
+                    <button class="header-action-btn">
+                        <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+                        <p class="header-action-label">
+                            <a href="{% url 'logout' %}">Logout</a>
+                        </p>
+                    </button>
+                    <button class="header-action-btn">
+                        <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+                        <p class="header-action-label">
+                            <a href="{% url 'logout' %}">Logout</a>
+                        </p>
+                    </button>
+                {% else %}
+                    <button class="header-action-btn">
+                        <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+                        <p class="header-action-label"><a href="{% url 'login' %}">Login</a></p>
+                    </button>
+            
+                    <button class="header-action-btn">
+                        <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+                        <p class="header-action-label"><a href="{% url 'signup' %}">Sign up</a></p>
+                    </button>
+                {% endif %}
+            
+                <button class="header-action-btn">
+                    <ion-icon name="cart-outline" aria-hidden="true"></ion-icon>
+                    <p class="header-action-label"><a href="{% url 'cart' %}">Cart</a></p>
+                </button>
+            
+            </div>
+            
+    
+            <button class="nav-open-btn" data-nav-open-btn aria-label="Open Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    
+            <nav class="navbar" data-navbar>
+    
+                <div class="navbar-top">
+    
+                    <a href="#" class="logo">
+                        <img src="{%static 'images/mk.jpg' %}" alt="MK's logo" width="130" height="31">
+                    </a>
+    
+                    <button class="nav-close-btn" data-nav-close-btn aria-label="Close Menu">
+            <ion-icon name="close-outline"></ion-icon>
+          </button>
+    
+                </div>
+    
+                <ul class="navbar-list">
+    
+                    <li>
+                        <a href="{% url 'home' %}" class="navbar-link">Home</a>
+                    </li>
+    
+                    <li>
+                        <a href="{% url 'tickets' %}" class="navbar-link">Tickets</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'merchandise' %}" class="navbar-link">Merchandise</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'album' %}" class="navbar-link">Artist Album</a>
+                    </li>
+    
+                    <li>
+                        <a href="{% url 'checkout' %}" class="navbar-link">Checkout</a>
+                    </li>
+    
+                </ul>
+    
+            </nav>
+    
+        </div>
+    </header>
+    {% if ticket %}
+    <div class="product-container">
+        <div class="product-image">
+            <img src="{{ ticket.image.url }}" alt="{{ ticket.description }}">
+        </div>
+        <div class="product-details">
+            <h2>{{ ticket.description }}</h2>
+            {% if ticket.price %}
+            <div style="display: flex; align-items: baseline;">
+                <span class="price">KSh {{ ticket.price }}</span>
+            </div>
+            {% endif %}
+            <p class="status">{{ ticket.status }}</p>
+            
+            <form method="POST" action="{% url 'ticket_detail' ticket_id=ticket.id %}">
+                {% csrf_token %}
+                <button type="submit" class="add-btn">🛒 Add to Cart</button>
+            </form>
+        </div>
+    </div>
+    {% else %}
+    <p>Product not found.</p>
+    {% endif %}
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

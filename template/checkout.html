@@ -1,0 +1,276 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout</title>
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+
+    .section {
+      flex: 1 1 300px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h2 {
+      margin-bottom: 1rem;
+      color: #444;
+    }
+
+    label {
+      margin: 0.5rem 0 0.3rem;
+      font-size: 0.9rem;
+    }
+
+    input, select {
+      padding: 0.7rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      width: 100%;
+    }
+
+    .summary {
+      background: #f5f5f5;
+      border-radius: 10px;
+      padding: 1rem;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.8rem;
+    }
+
+    .summary-total {
+      border-top: 1px solid #ccc;
+      padding-top: 1rem;
+      font-weight: bold;
+    }
+
+    .btnn {
+      padding: 1rem;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease-in-out;
+      margin-top: 1rem;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" data-header>
+    <div class="container">
+
+        <div class="overlay" data-overlay></div>
+
+        <div class="header-search">
+            <input type="search" name="search" placeholder="Search Product..." class="input-field">
+
+            <button class="search-btn" aria-label="Search">
+      <ion-icon name="search-outline"></ion-icon>
+    </button>
+        </div>
+
+        <a href="#" class="logo">
+            <img src="{%static 'images/mk.jpg' %}" alt="MK's logo" width="130" height="31">
+        </a>
+
+        <div class="header-actions">
+
+            {% if user.is_authenticated %}
+                <button class="header-action-btn">
+                    <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+                    <p class="header-action-label">
+                        <a href="{% url 'logout' %}">Logout</a>
+                    </p>
+                </button>
+                <button class="header-action-btn">
+                    <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+                    <p class="header-action-label">
+                        <a href="{% url 'logout' %}">Logout</a>
+                    </p>
+                </button>
+            {% else %}
+                <button class="header-action-btn">
+                    <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+                    <p class="header-action-label"><a href="{% url 'login' %}">Login</a></p>
+                </button>
+        
+                <button class="header-action-btn">
+                    <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+                    <p class="header-action-label"><a href="{% url 'signup' %}">Sign up</a></p>
+                </button>
+            {% endif %}
+        
+            <button class="header-action-btn">
+                <ion-icon name="cart-outline" aria-hidden="true"></ion-icon>
+                <p class="header-action-label"><a href="{% url 'cart' %}">Cart</a></p>
+            </button>
+        
+        </div>
+        
+
+        <button class="nav-open-btn" data-nav-open-btn aria-label="Open Menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+        <nav class="navbar" data-navbar>
+
+            <div class="navbar-top">
+
+                <a href="#" class="logo">
+                    <img src="{%static 'images/mk.jpg' %}" alt="MK's logo" width="130" height="31">
+                </a>
+
+                <button class="nav-close-btn" data-nav-close-btn aria-label="Close Menu">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+
+            </div>
+
+            <ul class="navbar-list">
+
+                <li>
+                    <a href="{% url 'home' %}" class="navbar-link">Home</a>
+                </li>
+
+                <li>
+                    <a href="{% url 'tickets' %}" class="navbar-link">Tickets</a>
+                </li>
+                <li>
+                    <a href="{% url 'merchandise' %}" class="navbar-link">Merchandise</a>
+                </li>
+                <li>
+                    <a href="{% url 'album' %}" class="navbar-link">Artist Album</a>
+                </li>
+
+                <li>
+                    <a href="{% url 'checkout' %}" class="navbar-link">Checkout</a>
+                </li>
+
+            </ul>
+
+        </nav>
+
+    </div>
+</header>
+  <div class="container">
+    <!-- Shipping Info -->
+    <div class="section">
+      <h2>Shipping Details</h2>
+      <label for="fullname">Full Name</label>
+      <input type="text" id="fullname" placeholder="Mk ">
+
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="john@example.com">
+
+      <label for="address">Address</label>
+      <input type="text" id="address" placeholder="123 Main Street">
+
+      <label for="city">City</label>
+      <input type="text" id="city" placeholder="Nairobi">
+
+      <label for="zip">Zip Code</label>
+      <input type="text" id="zip" placeholder="00100">
+
+      <label for="country">Country</label>
+      <select id="country">
+        <option value="ke">Kenya</option>
+        <option value="us">United States</option>
+        <option value="uk">United Kingdom</option>
+        <!-- Add more as needed -->
+      </select>
+    </div>
+
+    <!-- Order Summary -->
+    
+    <div class="section summary">
+
+      <h2>Order Summary</h2>
+      {% for item in cart_items %}
+      {% if item.ticket %}
+      <div class="summary-item">
+        <span>{{ item.ticket.description }}</span>
+        <span>Kes{{ item.ticket.price }}</span>
+      </div>
+      {% elif item.merchandise %}
+      <div class="summary-item">
+        <span>{{ item.merchandise.description }}</span>
+        <span>Kes{{ item.merchandise.price }}</span>
+      </div>
+      {% elif item.album %}
+      <div class="summary-item">
+        <span>{{ item.album.description }}</span>
+        <span>Kes{{ item.album.price }}</span>
+      </div>
+      {% endif %}
+
+  
+    {% endfor %}
+    
+    <div class="summary-item summary-total">
+      <span>Total</span>
+      <span>{{ total }}</span>
+    </div>
+      <h2 style="margin-top:2rem;">Payment Info</h2>
+      <label for="cardnumber">Card Number</label>
+      <input type="text" id="cardnumber" placeholder="1234 5678 9012 3456">
+
+      <label for="exp">Expiry Date</label>
+      <input type="text" id="exp" placeholder="MM/YY">
+
+      <label for="cvv">CVV</label>
+      <input type="text" id="cvv" placeholder="123">
+
+      <button class="btnn">Place Order</button>
+    </div>
+  </div>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

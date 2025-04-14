@@ -1,0 +1,519 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MK Concert merchandise </title>
+
+    <!-- 
+    - favicon
+  -->
+    <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+
+    <!-- 
+    - custom css link
+  -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+
+    <!-- 
+    - google font link
+  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- 
+    - #HEADER
+  -->
+
+  <header class="header" data-header>
+    <div class="container">
+
+        <div class="overlay" data-overlay></div>
+
+        <div class="header-search">
+            <input type="search" name="search" placeholder="Search Product..." class="input-field">
+
+            <button class="search-btn" aria-label="Search">
+      <ion-icon name="search-outline"></ion-icon>
+    </button>
+        </div>
+
+        <a href="#" class="logo">
+            <img src="{%static 'images/mk.jpg' %}" alt="MK's logo" width="130" height="31">
+        </a>
+
+        <div class="header-actions">
+
+            {% if user.is_authenticated %}
+                <button class="header-action-btn">
+                    <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+                    <p class="header-action-label">
+                        <a href="{% url 'logout' %}">Logout</a>
+                    </p>
+                </button>
+                <button class="header-action-btn">
+                    <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+                    <p class="header-action-label">
+                        <a href="{% url 'logout' %}">Logout</a>
+                    </p>
+                </button>
+            {% else %}
+                <button class="header-action-btn">
+                    <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+                    <p class="header-action-label"><a href="{% url 'login' %}">Login</a></p>
+                </button>
+        
+                <button class="header-action-btn">
+                    <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+                    <p class="header-action-label"><a href="{% url 'signup' %}">Sign up</a></p>
+                </button>
+            {% endif %}
+        
+            <button class="header-action-btn">
+                <ion-icon name="cart-outline" aria-hidden="true"></ion-icon>
+                <p class="header-action-label"><a href="{% url 'cart' %}">Cart</a></p>
+            </button>
+        
+        </div>
+        
+
+        <button class="nav-open-btn" data-nav-open-btn aria-label="Open Menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+        <nav class="navbar" data-navbar>
+
+            <div class="navbar-top">
+
+                <a href="#" class="logo">
+                    <img src="{%static 'images/mk.jpg' %}" alt="MK's logo" width="130" height="31">
+                </a>
+
+                <button class="nav-close-btn" data-nav-close-btn aria-label="Close Menu">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+
+            </div>
+
+            <ul class="navbar-list">
+
+                <li>
+                    <a href="{% url 'home' %}" class="navbar-link">Home</a>
+                </li>
+
+                <li>
+                    <a href="{% url 'tickets' %}" class="navbar-link">Tickets</a>
+                </li>
+                <li>
+                    <a href="{% url 'merchandise' %}" class="navbar-link">Merchandise</a>
+                </li>
+                <li>
+                    <a href="{% url 'album' %}" class="navbar-link">Artist Album</a>
+                </li>
+
+                <li>
+                    <a href="{% url 'checkout' %}" class="navbar-link">Checkout</a>
+                </li>
+
+            </ul>
+
+        </nav>
+
+    </div>
+</header>
+    <main>
+        <article>
+            <section class="hero" id="home" style="background-image: url('{% static "images/mk banner 4.jpg" %}')">
+                <div class="container ">
+
+                    <div class="hero-content ">
+
+                        <p class="hero-subtitle ">Music Never Stops</p>
+
+                        <h2 class="h1 hero-title ">MK's Concert Merchandise Platform</h2>
+
+                        <button class="btn btn-primary ">Shop Now</button>
+
+                    </div>
+
+                </div>
+            </section>
+        </article>
+    </main>
+    <!-- 
+        - #SERVICE
+      -->
+
+      <section class="service">
+        <div class="container">
+    
+            <ul class="service-list">
+    
+                <li class="service-item">
+                    <div class="service-item-icon">
+                        <img src="{% static 'images/merchandise 19.jpeg' %}" alt="Service icon" loading="lazy" width="510" height="600" class="w-100">
+                    </div>
+    
+                    <div class="service-content">
+                        <p class="service-item-title">Free Shipping</p>
+                        <p class="service-item-text">On All Order Over $599</p>
+                    </div>
+                </li>
+    
+                <li class="service-item">
+                    <div class="service-item-icon">
+                        <img src="{% static 'images/merchandise30.jpeg' %}" alt="Service icon" loading="lazy" width="510" height="600" class="w-100">
+                    </div>
+    
+                    <div class="service-content">
+                        <p class="service-item-title">Easy Returns</p>
+                        <p class="service-item-text">30 Day Returns Policy</p>
+                    </div>
+                </li>
+    
+                <li class="service-item">
+                    <div class="service-item-icon">
+                        <img src="{% static 'images/merchandise 19.jpeg' %}" alt="Service icon" loading="lazy" width="510" height="600" class="w-100">
+                    </div>
+    
+                    <div class="service-content">
+                        <p class="service-item-title">Secure Payment</p>
+                        <p class="service-item-text">100% Secure Guarantee</p>
+                    </div>
+                </li>
+    
+                <li class="service-item">
+                    <div class="service-item-icon">
+                        <img src="{% static 'images/merchandise 10.jpg' %}" alt="Service icon" loading="lazy" width="510" height="600" class="w-100">
+                    </div>
+    
+                    <div class="service-content">
+                        <p class="service-item-title">Special Support</p>
+                        <p class="service-item-text">24/7 Dedicated Support</p>
+                    </div>
+                </li>
+    
+            </ul>
+    
+        </div>
+    </section>
+
+    <!-- 
+        - #CATEGORY
+      -->
+      <section class="section category">
+        <div class="container">
+    
+            <ul class="category-list">
+    
+                <li class="category-item">
+                    <figure class="category-banner">
+                        <img src="{% static 'images/merchandise 8.jpg' %}" alt="Concert tickets" loading="lazy" width="510" height="600" class="w-100">
+                    </figure>
+                    <a href="{% url 'tickets' %}" class="btn btn-secondary">Concert tickets</a>
+                </li>
+    
+                <li class="category-item">
+                    <figure class="category-banner">
+                        <img src="{% static 'images/merchandise 26.jpeg' %}" alt="Unique Merchandise" loading="lazy" width="510" height="600" class="w-100">
+                    </figure>
+                    <a href="{% url 'merchandise' %}" class="btn btn-secondary">Unique Merchandise</a>
+                </li>
+    
+                <li class="category-item">
+                    <figure class="category-banner">
+                        <img src="{% static 'images/merchandise 32.jpeg' %}" alt="shirt merchandise" loading="lazy" width="510" height="600" class="w-100">
+                    </figure>
+                    <a href="{% url 'merchandise' %}" class="btn btn-secondary">shirt merchandise</a>
+                </li>
+    
+                <li class="category-item">
+                    <figure class="category-banner">
+                        <img src="{% static 'images/merchandise 31.jpeg' %}" alt="shirt merchadise" loading="lazy" width="510" height="600" class="w-100">
+                    </figure>
+                    <a href="{% url 'merchandise' %}" class="btn btn-secondary">shirt merchadise</a>
+                </li>
+    
+                <li class="category-item">
+                    <figure class="category-banner">
+                        <img src="{% static 'images/merchandise 21.jpeg' %}" alt="Artist Albums" loading="lazy" width="510" height="600" class="w-100">
+                    </figure>
+                    <a href="{% url 'album' %}" class="btn btn-secondary">Artist Albums</a>
+                </li>
+    
+                <li class="category-item">
+                    <figure class="category-banner">
+                        <img src="{% static 'images/merchandise 39.jpeg' %}" alt="Concert tickets" loading="lazy" width="510" height="600" class="w-100">
+                    </figure>
+                    <a href="{% url 'tickets' %}" class="btn btn-secondary">Concert tickets</a>
+                </li>
+    
+            </ul>
+    
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+    <!-- 
+        - #BLOG
+      -->
+
+      <section class="section blog">
+        <div class="container">
+      
+          <h2 class="h2 section-title">Latest Concert News</h2>
+      
+          <ul class="blog-list">
+            {% for news in news_items %}
+            <li>
+              <div class="blog-card">
+      
+                <figure class="card-banner">
+                  <a href="/">
+                    <img src="{{ news.image.url }}" alt="{{ news.title }}" loading="lazy" width="1020" height="700" class="w-100">
+                  </a>
+                </figure>
+      
+                <div class="card-content">
+      
+                  <ul class="card-meta-list">
+                    <li class="card-meta-item">
+                      <ion-icon name="folder-open-outline"></ion-icon>
+                      <a href="/" class="card-meta-link">{{ news.category }}</a>
+                    </li>
+      
+                    <li class="card-meta-item">
+                      <ion-icon name="time-outline"></ion-icon>
+                      <a href="/" class="card-meta-link">
+                        <time datetime="{{ news.date_posted }}">{{ news.date_posted|date:"d M Y" }}</time>
+                      </a>
+                    </li>
+                  </ul>
+      
+                  <h3 class="h3 card-title">
+                    <a href="/">{{ news.title }}</a>
+                  </h3>
+      
+                </div>
+      
+              </div>
+            </li>
+            {% empty %}
+            <p>No news available at the moment.</p>
+            {% endfor %}
+          </ul>
+      
+        </div>
+      </section>
+      
+    </main>
+    <!-- 
+    - #FOOTER
+  -->
+
+    <footer class="footer">
+
+        <div class="footer-top">
+            <div class="container">
+
+                <div class="footer-brand">
+
+                    <a href="#" class="logo">
+                        <img src="{%static 'images/mk.jpg' %}" alt="MK's logo" width="130" height="31">
+                    </a>
+
+                    <p class="footer-text">
+                        MK's Concert Merchandise is a place where you get the best concert merchandise there is and for an affordable price.
+                    </p>
+
+                    <ul class="social-list">
+
+                        <li>
+                            <a href="#" class="social-link" title="Facebook">
+                                <ion-icon name="logo-facebook"></ion-icon>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="social-link" title="Twitter">
+                                <ion-icon name="logo-twitter"></ion-icon>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="social-link" title="Instagram">
+                                <ion-icon name="logo-instagram"></ion-icon>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="social-link" title="Pinterest">
+                                <ion-icon name="logo-pinterest"></ion-icon>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <ul class="footer-list">
+
+                    <li>
+                        <p class="footer-list-title">Information</p>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">About Company</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Payment Type</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Awards Winning</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">World Media Partner</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Become an Agent</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Refund Policy</a>
+                    </li>
+
+                </ul>
+
+                <ul class="footer-list">
+
+                    <li>
+                        <p class="footer-list-title">Category</p>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Concert Tickets</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Concert shirts</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Concert hoodies</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Complete Your Look</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Concert merchandise</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Concert water bottles</a>
+                    </li>
+
+                </ul>
+
+                <ul class="footer-list">
+
+                    <li>
+                        <p class="footer-list-title">Help & Support</p>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Dealers & Agents</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">FAQ Information</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Return Policy</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Shipping & Delivery</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Order Tranking</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">List of Shops</a>
+                    </li>
+
+                </ul>
+
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container">
+
+                <p class="copyright">
+                    &copy; 2025 <a href="#">codewithmkmaina</a>.
+                </p>
+
+                <ul class="footer-bottom-list">
+
+                    <li>
+                        <a href="#" class="footer-bottom-link">Privacy Policy</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-bottom-link">Terms & Conditions</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-bottom-link">Sitemap</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+    </footer>
+    <!-- 
+    - custom js link
+  -->
+    <script src="js/script.js"></script>
+
+    <!-- 
+    - ionicon link
+  -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>
+
+</html>

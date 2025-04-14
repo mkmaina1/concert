@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-2">Welcome, Admin</h1>
+        <h2 class="text-xl text-center text-gray-600 mb-6">Select Section to Add</h2>
+        <ul class="space-y-4">
+            <li>
+                <a href="{% url 'add_news' %}" class="block bg-blue-600 text-white text-center py-2 rounded-lg font-medium hover:bg-blue-700 transition">Add News</a>
+            </li>
+            <li>
+                <a href="{% url 'add_ticket' %}" class="block bg-green-600 text-white text-center py-2 rounded-lg font-medium hover:bg-green-700 transition">Add Ticket</a>
+            </li>
+            <li>
+                <a href="{% url 'add_merchandise' %}" class="block bg-purple-600 text-white text-center py-2 rounded-lg font-medium hover:bg-purple-700 transition">Add Merchandise</a>
+            </li>
+            <li>
+                <a href="{% url 'add_album' %}" class="block bg-pink-600 text-white text-center py-2 rounded-lg font-medium hover:bg-pink-700 transition">Add Album</a>
+            </li>
+        </ul>
+                <!-- Logout Button -->
+                <div class="mt-6">
+                    <a href="{% url 'logout' %}" class="block bg-red-500 text-white text-center py-2 rounded-lg font-medium hover:bg-red-600 transition">Logout</a>
+                </div>
+    </div>
+</body>
+</html>
